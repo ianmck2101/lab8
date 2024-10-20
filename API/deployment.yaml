@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-api
+  labels:
+    app: todo-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-api
+  template:
+    metadata:
+      labels:
+        app: todo-api
+    spec:
+      containers:
+        - name: todo-api
+          image: registry.digitalocean.com/csc5201-ianm/task-service-0.0.1:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          env:
+            - name: db_root_password
+              valueFrom:
+                secretKeyRef:
+                  name: flaskapi-secrets
+                  key: db_root_password
+            - name: db_name
+              value: flaskapi
+      imagePullSecrets:
+        - name: regsecret
