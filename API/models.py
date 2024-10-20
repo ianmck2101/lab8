@@ -40,11 +40,9 @@ class UserModel:
     TABLENAME = "User"
 
     def __init__(self):
-        # Initialize the connection to the database
         self.conn = sqlite3.connect('app.db')
 
     def __del__(self):
-        # Ensure that the connection is closed
         self.conn.commit()
         self.conn.close()
 
@@ -56,12 +54,11 @@ class UserModel:
 
             query = f'INSERT INTO {self.TABLENAME} (Username, Password) VALUES (?, ?)'
             self.conn.execute(query, (params["Username"], params["Password"]))  
-            self.conn.commit()  # Commit the transaction
+            self.conn.commit()  
             
-            # Fetch and return the newly created user
             return self.get_by_username(params["Username"])
         except Exception as e:
-            print("An error occurred while creating the user: %s", e)  # Use logger to log the error
+            print("An error occurred while creating the user: %s", e)
             return None
 
 
@@ -86,20 +83,18 @@ class ToDoModel:
     TABLENAME = "Todo"
 
     def __init__(self):
-        # Initialize the connection to the database
         self.conn = sqlite3.connect('app.db')
 
     def __del__(self):
-        # Ensure that the connection is closed
         self.conn.commit()
         self.conn.close()
 
     def create(self, params):
         query = f'INSERT INTO {self.TABLENAME} (Title, Description, DueDate, UserId) VALUES (?, ?, ?, ?)'
-        cursor = self.conn.cursor()  # Create a cursor object to execute the query
+        cursor = self.conn.cursor() 
         cursor.execute(query, (params["Title"], params["Description"], params["DueDate"], params["UserId"]))
-        self.conn.commit()  # Commit the transaction
-        return self.get_by_id(cursor.lastrowid)  # Use cursor.lastrowid
+        self.conn.commit() 
+        return self.get_by_id(cursor.lastrowid)
 
     def get_all(self, user_id):
         query = f'SELECT * FROM {self.TABLENAME} WHERE UserId = ?'

@@ -34,5 +34,5 @@ spec:
   type: LoadBalancer
   ports:
     - protocol: TCP
-      port: 80          # External port for the frontend
-      targetPort: 80    # Internal container port for Nginx
+      port: 80
+      targetPort: 80

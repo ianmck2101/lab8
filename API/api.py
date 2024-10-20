@@ -92,7 +92,7 @@ def update_item(item_id):
          'Title': todo[1],
          'Description': todo[2],
          'DueDate': todo[3],
-         'UserId': todo[4]  # Adjust based on your tuple structure
+         'UserId': todo[4] 
       }
 
       if todo_dict['UserId'] != user['Id']:
@@ -101,9 +101,9 @@ def update_item(item_id):
    else:
       return jsonify({"error": "Todo item not found"}), 404
 
-   # Update todo logic here
+   
    updated_data = request.get_json()
-   # Assuming you have a function to update the todo
+   
    ToDoService().update(item_id, updated_data)
    return jsonify({"message": "Todo updated successfully"}), 200
 
@@ -129,7 +129,7 @@ def delete_item(item_id):
          'Title': todo[1],
          'Description': todo[2],
          'DueDate': todo[3],
-         'UserId': todo[4]  # Adjust based on your tuple structure
+         'UserId': todo[4]
       }
 
       if todo_dict['UserId'] != user['Id']:
@@ -162,7 +162,7 @@ def get_item(item_id):
          'Title': todo[1],
          'Description': todo[2],
          'DueDate': todo[3],
-         'UserId': todo[4]  # Adjust based on your tuple structure
+         'UserId': todo[4]
       }
 
       if todo_dict['UserId'] != user['Id']:
@@ -195,7 +195,7 @@ def login_user():
          session['user_id'] = new_user['Id']
          return jsonify(new_user), 201
       else:
-         print("Failed to create new user.")  # Log failure to create user
+         print("Failed to create new user.")
          return jsonify({"error": "Failed to create user"}), 500
 
 if __name__ == "__main__":

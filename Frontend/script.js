@@ -9,29 +9,28 @@ async function fetchTodos() {
     const todos = await response.json();
 
     const todoList = document.getElementById('todoList');
-    todoList.innerHTML = ''; // Clear the list
+    todoList.innerHTML = '';
 
     if (Array.isArray(todos)) {
         todos.forEach(todo => {
             const li = document.createElement('li');
-            li.innerText = `${todo[1]} - ${todo[2]} (Due: ${todo[3]})`; // Accessing the elements by index
+            li.innerText = `${todo[1]} - ${todo[2]} (Due: ${todo[3]})`;
 
             // Add a delete button
             const deleteButton = document.createElement('button');
             deleteButton.innerText = 'Delete';
-            deleteButton.onclick = () => deleteTodo(todo[0]); // Use todo[0] for ID
+            deleteButton.onclick = () => deleteTodo(todo[0]); 
             li.appendChild(deleteButton);
 
             // Add an update button
             const updateButton = document.createElement('button');
             updateButton.innerText = 'Update';
-            updateButton.onclick = () => openUpdateForm(todo); // Pass the entire todo for updating
+            updateButton.onclick = () => openUpdateForm(todo);
             li.appendChild(updateButton);
 
             todoList.appendChild(li);
         });
     } else {
-        // Handle error response if needed
         alert(todos.error || 'Failed to load todos.');
     }
 }
@@ -41,8 +40,8 @@ async function createTodo() {
     const title = document.getElementById('title').value;
     const description = document.getElementById('description').value;
     const dueDate = document.getElementById('dueDate').value;
-    const username = document.getElementById('username').value; // Get username
-    const password = document.getElementById('password').value; // Get password
+    const username = document.getElementById('username').value; 
+    const password = document.getElementById('password').value; 
 
     // Construct the payload
     const todoData = {
@@ -60,7 +59,7 @@ async function createTodo() {
     });
 
     if (response.ok) {
-        fetchTodos(); // Refresh the list
+        fetchTodos();
     } else {
         const errorData = await response.json();
         alert(`Failed to create todo: ${errorData.error}`);
@@ -69,10 +68,10 @@ async function createTodo() {
 
 // Open the update form with existing todo details
 function openUpdateForm(todo) {
-    document.getElementById('updateId').value = todo[0]; // Access ID using index
-    document.getElementById('updateTitle').value = todo[1]; // Title
-    document.getElementById('updateDescription').value = todo[2]; // Description
-    document.getElementById('updateDueDate').value = todo[3]; // DueDate
+    document.getElementById('updateId').value = todo[0];
+    document.getElementById('updateTitle').value = todo[1];
+    document.getElementById('updateDescription').value = todo[2];
+    document.getElementById('updateDueDate').value = todo[3];
 }
 
 // Update an existing todo
